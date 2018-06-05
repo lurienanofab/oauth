@@ -1,0 +1,24 @@
+﻿@using OAuth.Models;
+
+@model ClientApp
+@{
+    ViewBag.Title = "Authorize";
+    string displayName = ViewBag.DisplayName;
+}
+
+<div class="page-header">
+    <h1>Authorize</h1>
+</div>
+
+@using (Html.BeginForm("AuthorizeGrant", "Home", FormMethod.Post))
+{
+    <p>Hello @displayName,</p>
+    <p>A third party application is requesting authorization on your behalf:</p>
+    <ul>
+        <li>@Model.Name</li>
+    </ul>
+    <p>
+        <button type="submit" name="command" value="grant" class="btn btn-default">Grant</button>
+        <button type="submit" name="command" value="login" class="btn btn-default">Sign in as different user</button>
+    </p>
+}

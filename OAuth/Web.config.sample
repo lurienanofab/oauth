@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <sectionGroup name="lnf">
+      <section name="provider" type="LNF.ServiceProviderSection, LNF"/>
+    </sectionGroup>
+  </configSections>
+
+  <lnf>
+    <provider production="false">
+      <context loginUrl="/login"/>
+      <dataAccess showSql="true"/>
+      <email host="127.0.0.1" log="true"/>
+      <control host="xxxxx"/>
+      <log name="OAuth" enabled="true"/>
+    </provider>
+  </lnf>
+
+  <appSettings>
+    <add key="MongoConnectionString" value="xxxxx"/>
+    <add key="webpages:Version" value="3.0.0.0"/>
+    <add key="webpages:Enabled" value="false"/>
+    <add key="PreserveLoginUrl" value="true"/>
+    <add key="ClientValidationEnabled" value="true"/>
+    <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+  </appSettings>
+
+  <connectionStrings>
+    <add name="cnSselData" providerName="System.Data.SqlClient" connectionString="xxxxx"/>
+  </connectionStrings>
+
+  <system.web>
+    <compilation debug="true" targetFramework="4.7"/>
+
+    <httpRuntime targetFramework="4.7"/>
+
+    <pages>
+      <namespaces>
+        <add namespace="System.Web.Helpers"/>
+        <add namespace="System.Web.Mvc"/>
+        <add namespace="System.Web.Mvc.Ajax"/>
+        <add namespace="System.Web.Mvc.Html"/>
+        <add namespace="System.Web.Routing"/>
+        <add namespace="System.Web.WebPages"/>
+      </namespaces>
+    </pages>
+
+    <authentication mode="Forms">
+      <forms name="sselAuth.cookie" path="/" loginUrl="/login/" timeout="1440" protection="All" slidingExpiration="true" domain="umich.edu" cookieless="UseCookies"/>
+    </authentication>
+
+    <authorization>
+      <deny users="?"/>
+    </authorization>
+
+    <machineKey validationKey="xxxxx" decryptionKey="xxxxx" validation="SHA1" decryption="3DES" compatibilityMode="Framework20SP2"/>
+
+    <customErrors mode="Off"/>
+  </system.web>
+
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false"/>
+
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0"/>
+      <remove name="OPTIONSVerbHandler"/>
+      <remove name="TRACEVerbHandler"/>
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0"/>
+    </handlers>
+  </system.webServer>
+
+  <system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:1659;1699;1701"/>
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.8.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:default /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+"/>
+    </compilers>
+  </system.codedom>
+
+  <location path="token">
+    <system.web>
+      <authorization>
+        <allow users="*"/>
+      </authorization>
+    </system.web>
+  </location>
+</configuration>
